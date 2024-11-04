@@ -36,6 +36,9 @@ class RCCarWrapper(gym.Wrapper):
         self.arrive_distance = 1.5
         #####
         
+        self.max_speed = args.max_speed
+        self.min_speed = args.min_speed
+        self.max_steer = args.max_steer
 
     def reset(self, **kwargs):
         obs_dict, info = self._env.reset(**kwargs)
@@ -60,7 +63,16 @@ class RCCarWrapper(gym.Wrapper):
         return [self.pos, self.yaw, self.scan], info
 
     def step(self, action:np.array):
-        obs_dict, _, terminate, truncate, info = self._env.step(action)
+        
+        steer = action[0]
+        speed = action[1]
+
+        steer = np.clip(steer, -self.max_steer, self.max_steer)
+        speed = np.clip(speed, self.min_speed, self.max_speed)
+        
+        clipped_action = np.array([steer, speed])
+        
+        obs_dict, _, terminate, truncate, info = self._env.step(clipped_action)
 
         pos_x, pos_y, yaw = obs_dict['poses_x'][0], obs_dict['poses_y'][0], obs_dict['poses_theta'][0] # rad
         self.pos = np.stack([pos_x, pos_y])
