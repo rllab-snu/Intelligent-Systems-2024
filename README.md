@@ -74,7 +74,7 @@ ros2 run rccar_bringup RLLAB_project1 --save --no_render
 ```
 
 ### Project 2
-When you want to train new model and evalutate, you can run project2 code with `--mode train` argument.
+When you want to train new model and evaluate, you can run project2 code with `--mode train` argument.
 
 ```shell
 ros2 run rccar_bringup RLLAB_project2 --mode train
