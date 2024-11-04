@@ -53,14 +53,47 @@ After building the package, we should use following command in every terminal we
 source install/setup.bash
 ```
 
-## Evaluation of Your Code
-To publish topic manually, use following command in the first terminal.
+## Running Codes
+### Project 1
+For just project 1, you can run using following command.
 
 ```shell
-ros2 topic pub /query message/msg/Query "{id: '0', team: 'RLLAB', map: 'map1', trial: 0, exit: false}" # Replace RLLAB with your team name and you can use other maps we provide in 'maps' directory
+ros2 run rccar_bringup RLLAB_project1
+# Replace RLLAB with your team name
 ```
-To run your project file, use following command in the second terminal.
+
+For project 2, you have to save trajectories from the pure pursuit demonstrations.
+
+You can save trajectory by using `--save` argument.
+
+Also, you can run without rendering by using `--no_render` for faster process.
 
 ```shell
-ros2 run rccar_bringup RLLAB_project1 # Replace RLLAB with your team name
+ros2 run rccar_bringup RLLAB_project1 --save --no_render
+# Replace RLLAB with your team name
 ```
+
+### Project 2
+When you want to train new model and evalutate, you can run project2 code with `--mode train` argument.
+
+```shell
+ros2 run rccar_bringup RLLAB_project2 --mode train
+# Replace RLLAB with your team name
+```
+
+When you want to load trained model without training, you can just run without `--mode` argument since its default value is `val`.
+
+```shell
+ros2 run rccar_bringup RLLAB_project2
+# Replace RLLAB with your team name
+```
+
+### Manually publishing map topic
+For each project code, you publish `/query` topic manually using following command in another terminal.
+
+```shell
+ros2 topic pub --once /query message/msg/Query "{id: '0', team: 'RLLAB', map: 'map1', trial: 0, exit: false}"
+# Replace RLLAB with your team name and you can use other maps we provide in 'maps' directory
+```
+
+Note that you can publish the topic once with `--once` argument.
