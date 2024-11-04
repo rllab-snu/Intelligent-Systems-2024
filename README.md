@@ -89,7 +89,7 @@ ros2 run rccar_bringup RLLAB_project2
 ```
 
 ### Manually publishing map topic
-For each project code, you publish `/query` topic manually using following command in another terminal.
+For each project code, you can publish `/query` topic manually using following command in another terminal.
 
 ```shell
 ros2 topic pub --once /query message/msg/Query "{id: '0', team: 'RLLAB', map: 'map1', trial: 0, exit: false}"
