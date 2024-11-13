@@ -2,9 +2,7 @@
 *.npz
 *.egg-info
 
-trajectory
 .vscode
 install
 log
 build
-backup
