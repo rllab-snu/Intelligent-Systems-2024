@@ -12,13 +12,15 @@ from ament_index_python.packages import get_package_prefix
 from message.msg import Result, Query
 from rccar_gym.env_wrapper import RCCarWrapper
 
-from sklearn.utils import shuffle
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
-from joblib import dump, load
-
 ###################################################
-########## YOU MUST CHANGE THIS PART ##############
+########## YOU CAN ONLY CHANGE THIS PART  #########
+
+"""
+Freely import modules, define methods and classes, etc.
+You may add other python codes, but make sure to push it to github.
+To use particular modules, please let TA know to install them on the evaluation server, too.
+If you want to use a deep-learning library, please use pytorch.
+"""
 
 TEAM_NAME = "RLLAB"
 
@@ -40,10 +42,11 @@ def get_args():
     ###################################################
     ########## YOU CAN ONLY CHANGE THIS PART ##########
     """
-    Change the name as you want.
+    Change the model name as you want.
     Note that this will used for evaluation by the server as well.
+    You can add any arguments you want.
     """
-    parser.add_argument("--model_name", default="gp_1.pkl", type=str, help="model name to save and use")
+    parser.add_argument("--model_name", default="model.pkl", type=str, help="model name to save and use")
     ###################################################
     ###################################################
     
@@ -83,7 +86,7 @@ def get_args():
 
 class GaussianProcess(Node):
     def __init__(self, args):
-        super().__init__(f"{TEAM_NAME}_project2")
+        super().__init__(f"{TEAM_NAME}_project3")
         self.args = args
         self.mode = args.mode
 
@@ -103,78 +106,49 @@ class GaussianProcess(Node):
         self.model_name = args.model_name
         self.model_path = args.model_path
         
-        ###################################################
-        ########## YOU CAN ONLY CHANGE THIS PART ##########
+    ###################################################
+    ########## YOU CAN ONLY CHANGE THIS PART ##########
         """
-        1) Choose the maps to use for training as expert demonstration.
-        2) Define your model and other configurations for pre/post-processing.
+        Freely change the codes to increase the performance.
         """
-        self.train_maps = ['map1', 'map2']
-        self.kernel = None
-        self.alpha = None
-        self.model = GaussianProcessRegressor(kernel=self.kernel, alpha=self.alpha)
-        ###################################################
-        ###################################################
         
         self.load()
-        self.get_logger().info(">>> Running Project 2 for TEAM {}".format(TEAM_NAME))
+        self.get_logger().info(">>> Running Project 3 for TEAM {}".format(TEAM_NAME))
         
     def train(self):
         self.get_logger().info(">>> Start model training")
-        
-        ###################################################
-        ########## YOU CAN ONLY CHANGE THIS PART ##########
         """
-        1) load your expert demonstration.
-        2) Fit GP model, which gets lidar observation as input, and gives action as output.
-           We recommend to pre/post-process observations and actions for better performance (e.g. normalization).
+        Train and save your model.
+        You can either use this part or explicitly train using other python codes.
         """
-        
-        ###################################################
-        ###################################################
-
-        os.makedirs(self.model_dir, exist_ok=True)
-
-        ###################################################
-        ########## YOU CAN ONLY CHANGE THIS PART ##########
-        """
-        Save the file containing trained model and configuration for pre/post-processing.
-        """
-
-        ###################################################
-        ###################################################
         
         self.get_logger().info(">>> Trained model {} is saved".format(self.model_name))
-        
             
     def load(self):
+        """
+        Load your trained model.
+        Make sure not to train a new model when self.mode == 'val'.
+        """
         if self.mode == 'val':
             assert os.path.exists(self.model_path)
-            ###################################################
-            ########## YOU CAN ONLY CHANGE THIS PART ##########
-            """
-            Load the trained model and configurations for pre/post-processing.
-            """
-            
-            ###################################################
-            ###################################################
+            pass
         elif self.mode == 'train':
-            self.train()
+            pass
+            # self.train()
         else:
             raise AssertionError("mode should be one of 'train' or 'val'.")   
 
     def get_action(self, obs):
-        ###################################################
-        ########## YOU CAN ONLY CHANGE THIS PART ##########
         """
-        1) Pre-process the observation input, which is current 'scan' data.
-        2) Get predicted action from the model.
-        3) Post-process the action. Be sure to satisfy the limitation of steer and speed values.
+        Predict action using obs - 'scan' data.
+        Be sure to satisfy the limitation of steer and speed values.
         """
+        action = None
         
-        ###################################################
-        ###################################################
         return action
+    
+    ###################################################
+    ###################################################
 
     def query_callback(self, query_msg):
         
