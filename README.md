@@ -102,5 +102,6 @@ Note that you can publish the topic once with `--once` argument.
 You can change the parameters defined in random_trackgen.py and randomly generate your own map with `--seed` argument. You can run random_trackgen.py using following command.
 
 ```shell
+cd Intelligent-Systems-2024/maps
 python random_trackgen.py --seed your_seed --name your_map_name
 ```
