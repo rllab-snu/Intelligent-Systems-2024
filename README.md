@@ -97,3 +97,10 @@ ros2 topic pub --once /query message/msg/Query "{id: '0', team: 'RLLAB', map: 'm
 ```
 
 Note that you can publish the topic once with `--once` argument.
+
+### Map generation
+You can change the parameters defined in random_trackgen.py and randomly generate your own map with `--seed` argument. You can run random_trackgen.py using following command.
+
+```shell
+python random_trackgen.py --seed your_seed --name your_map_name
+```

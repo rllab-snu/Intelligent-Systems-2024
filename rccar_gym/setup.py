@@ -20,5 +20,7 @@ setup(name='rccar_gym',
           'gitpython',
           'lark',
           'empy==3.3.4',
+          'matplotlib',
+          'shapely'
       ]
 )
