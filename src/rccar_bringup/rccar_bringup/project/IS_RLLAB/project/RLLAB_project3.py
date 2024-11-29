@@ -84,7 +84,7 @@ def get_args():
     return args
 
 
-class GaussianProcess(Node):
+class RCCarPolicy(Node):
     def __init__(self, args):
         super().__init__(f"{TEAM_NAME}_project3")
         self.args = args
