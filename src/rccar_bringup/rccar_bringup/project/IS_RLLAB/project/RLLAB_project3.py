@@ -265,7 +265,7 @@ class RCCarPolicy(Node):
 def main():
     args = get_args()
     rclpy.init()
-    node = GaussianProcess(args)
+    node = RCCarPolicy(args)
     rclpy.spin(node)
 
 
